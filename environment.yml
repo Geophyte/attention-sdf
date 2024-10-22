@@ -1,0 +1,6 @@
+name: attention-sdf
+dependencies:
+  - matplotlib
+  - numpy
+  - pandas
+  - pathlib
