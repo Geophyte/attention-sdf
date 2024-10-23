@@ -3,7 +3,7 @@
 from pathlib import Path
 
 # path for the project directory
-project_dir = Path(__file__).resolve().parents[3]
+project_dir = Path(__file__).resolve().parents[2]
 
 
 def get_data_dir() -> Path:
