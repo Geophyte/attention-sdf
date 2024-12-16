@@ -23,5 +23,5 @@ def visualize_point_cloud(file_path: Path) -> None:
 
 if __name__ == "__main__":
     data_dir = get_data_dir()
-    sample_dir = data_dir / 'processed' / 'bunny' / 'stanford-bunny.hdf5'
+    sample_dir = data_dir / 'processed' / 'bunny' / 'stanford-bunny_val.hdf5'
     visualize_point_cloud(sample_dir)

@@ -1,0 +1,1 @@
+Set dim_hidden = 256, kept the architecture unchanged. Mixed results.

@@ -13,6 +13,7 @@ class LazySampleLoader:
     def __init__(self, batches: np.ndarray=None, context_size: int=None, filepath: Path=None) -> None:
         self.context_size = context_size
         self.filepath = filepath
+        self.file = None
 
         if batches is not None and context_size is not None:
             self.contexts = []
@@ -30,7 +31,7 @@ class LazySampleLoader:
                 self.inputs.append(input_data)
                 self.labels.append(label_data)
 
-        if filepath:
+        elif filepath:
             self.load_from_file(filepath)
 
     def save_to_file(self, filepath: Path):
@@ -46,16 +47,17 @@ class LazySampleLoader:
         self.file = h5py.File(filepath, 'r')
         self.num_batches = len(self.file.keys())
 
-    def get_batch(self, batch_index):
+    def get_batch(self, batch_index) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         context = self.file[f'batch_{batch_index}/context'][:]
         input_data = self.file[f'batch_{batch_index}/input'][:]
         label_data = self.file[f'batch_{batch_index}/labels'][:]
         return context, input_data, label_data
 
-    def get_sample(self, batch_index, sample_index):
+    def get_sample(self, batch_index, sample_index) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        context = self.file[f'batch_{batch_index}/context'][:]
         input_data = self.file[f'batch_{batch_index}/input'][sample_index]
         label_data = self.file[f'batch_{batch_index}/labels'][sample_index]
-        return input_data, label_data
+        return context, input_data, label_data
 
     def close(self):
         if self.file is not None:
@@ -84,3 +86,8 @@ class LazySampleLoader:
             context = self.file[f'batch_{batch_index}/context'][:]
             all_contexts.append(context)
         return np.concatenate(all_contexts, axis=0)
+
+    def get_batch_and_sample_count(self):
+        num_batches = self.num_batches
+        num_samples_per_batch = self.file[f'batch_{0}/input'].shape[0]
+        return num_batches, num_samples_per_batch

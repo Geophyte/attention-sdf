@@ -4,8 +4,8 @@
 
 import trimesh
 from pathlib import Path
-from load_data import get_data_dir
 from tqdm import tqdm
+from src.data.load_data import get_data_dir
 
 def normalize_obj_file(input_path: Path, target_dir: Path, source_dir: Path) -> None:
     mesh = trimesh.load(input_path)
