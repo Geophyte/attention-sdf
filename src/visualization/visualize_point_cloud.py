@@ -7,6 +7,7 @@ from src.data.lazy_sample_loader import LazySampleLoader
 
 PointData = Tuple[float, float, float, float]
 
+
 def visualize_point_cloud(file_path: Path) -> None:
     loader = LazySampleLoader(filepath=file_path)
     samples = loader.get_all_contexts()
@@ -19,9 +20,10 @@ def visualize_point_cloud(file_path: Path) -> None:
     cloud = pyrender.Mesh.from_points(points, colors=colors)
     scene = pyrender.Scene()
     scene.add(cloud)
-    pyrender.Viewer(scene, use_raymond_lighting=True, point_size=2)
+    pyrender.Viewer(scene, use_raymond_lighting=True, point_size=1)
+
 
 if __name__ == "__main__":
     data_dir = get_data_dir()
-    sample_dir = data_dir / 'processed' / 'bunny' / 'stanford-bunny_val.hdf5'
+    sample_dir = data_dir / "processed" / "camera" / "camera_val.hdf5"
     visualize_point_cloud(sample_dir)
