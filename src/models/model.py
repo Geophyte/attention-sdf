@@ -12,7 +12,7 @@ class SDFTransformerConfig:
     dim_output: int = 1
     delta: float = 0.1
     dim_hidden: int = 128
-    num_hidden_seeds: int = 32
+    num_hidden_seeds: int = 64
     num_heads: int = 1
 
 

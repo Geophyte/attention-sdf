@@ -113,7 +113,7 @@ if __name__ == "__main__":
                 device=device,
                 batch_size=BATCH_SIZE,
                 resolution=stage["resolution"],
-                context_size=256,
+                context_size=512,
             )
 
     train_dataset.close()

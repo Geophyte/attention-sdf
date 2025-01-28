@@ -9,11 +9,16 @@ from tqdm import tqdm
 from src.data.load_data import get_data_dir
 
 
-def normalize_obj_file(input_path: Path, target_dir: Path, source_dir: Path) -> None:
-    mesh = trimesh.load(input_path)
+def normalize_mesh(mesh: trimesh.Trimesh) -> trimesh.Trimesh:
     mesh.apply_translation(-mesh.centroid)
     scale_factor = 1.0 / mesh.scale
     mesh.apply_scale(scale_factor)
+    return mesh
+
+
+def normalize_obj_file(input_path: Path, target_dir: Path, source_dir: Path) -> None:
+    mesh = trimesh.load(input_path)
+    mesh = normalize_mesh(mesh)
 
     relative_path = input_path.relative_to(source_dir)
     output_path = target_dir / relative_path

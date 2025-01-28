@@ -6,6 +6,7 @@ from pathlib import Path
 import torch
 from src.data.process_models import sample_sdf_values
 from src.data.lazy_sample_loader import LazySampleLoader
+from src.data.normalize_models import normalize_mesh
 
 try:
     from IPython import get_ipython
@@ -66,6 +67,7 @@ def _save_mesh_to_obj(filename: str, verts: np.ndarray, faces: np.ndarray) -> No
         faces (np.ndarray): The faces of the mesh.
     """
     mesh = trimesh.Trimesh(vertices=verts, faces=faces)
+    mesh = normalize_mesh(mesh)
     mesh.export(filename)
 
 
